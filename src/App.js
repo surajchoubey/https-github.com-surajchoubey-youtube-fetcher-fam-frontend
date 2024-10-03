@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import TriggerButton from './TriggerButton';
+import VideoList from './VideoList';
+import { Container, Row } from 'react-bootstrap';
+import axios from 'axios';
 
-function App() {
+
+const App = () => {
+
+  const [clickFetch, setClickFetch] = useState(0);
+
+  const handleTriggerClick = async () => {
+    try {
+      await axios.post('/trigger');
+      alert('YouTube fetch triggered!');
+      setClickFetch(clickFetch + 1);
+    } catch (e) {
+      alert("ERROR: " + e)
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Row className="d-flex justify-content-center mt-2 bg-dark text-light rounded">
+        <h1 className="text-center">YouTube Video Fetcher</h1>
+      </Row>
+      <TriggerButton onClick={handleTriggerClick} />
+      <VideoList clickFetch={clickFetch}/>
+    </Container>
   );
-}
+};
 
 export default App;
