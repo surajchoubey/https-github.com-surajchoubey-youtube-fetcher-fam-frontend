@@ -25,7 +25,7 @@ const App = () => {
   return (
     <Container>
       <Row className="d-flex justify-content-center mt-2 bg-dark text-light rounded">
-        <h1 className="text-center">YouTube Video Fetcher</h1>
+        <h1 className="text-center">YouTube Video Fetcher <a href="https://github.com/surajchoubey/youtube-fetcher-fam"> GITHUB-CODE </a></h1>
       </Row>
       <TriggerButton onClick={handleTriggerClick} loading={loading} />
       <VideoList clickFetch={clickFetch} setClickFetch={setClickFetch} />
