@@ -18,11 +18,12 @@ const VideoList = ({ clickFetch }) => {
   const [beforeDate, setBeforeDate] = useState('');
   const [afterDate, setAfterDate] = useState('');
   const [totalPages, setTotalPages] = useState(1);
+  const [sortByDesc, setSortByDesc] = useState(true);
 
   useEffect(() => {
     fetchVideos();
     // eslint-disable-next-line
-  }, [page, searchText, beforeDate, afterDate, clickFetch]);
+  }, [page, searchText, beforeDate, afterDate, clickFetch, sortByDesc]);
 
   const fetchVideos = async () => {
     try {
@@ -33,6 +34,7 @@ const VideoList = ({ clickFetch }) => {
                 search_text: searchText,
                 before_date: beforeDate,
                 after_date: afterDate,
+                sortBy: (sortByDesc ? '-1' : '1')
             },
         });
         setVideos(response.data.videos);
@@ -79,7 +81,7 @@ const VideoList = ({ clickFetch }) => {
             </Form.Group>
           </Col>
           <Col xs={2}>
-            <Button variant="primary" onClick={() => { setAfterDate(''); setBeforeDate(''); setSearchText(''); }} className='my-2'>
+            <Button variant="primary" onClick={() => { setAfterDate(''); setBeforeDate(''); setSearchText(''); setSortByDesc(true); }} className='my-2'>
                 Restore Defaults
             </Button>
           </Col>
@@ -107,7 +109,11 @@ const VideoList = ({ clickFetch }) => {
             <th>Thumbnail</th>
             <th>Title</th>
             <th>Channel</th>
-            <th>Published At</th>
+            <th>
+              <Button variant="secondary" onClick={() => { setPage(1); setSortByDesc(!sortByDesc); }}>
+                Sort Publishing Date {sortByDesc ? '↑' : '↓' }
+              </Button>
+            </th>
           </tr>
         </thead>
         <tbody>
