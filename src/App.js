@@ -28,7 +28,7 @@ const App = () => {
         <h1 className="text-center">YouTube Video Fetcher</h1>
       </Row>
       <TriggerButton onClick={handleTriggerClick} loading={loading} />
-      <VideoList clickFetch={clickFetch} />
+      <VideoList clickFetch={clickFetch} setClickFetch={setClickFetch} />
     </Container>
   );
 };
